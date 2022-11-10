@@ -9,14 +9,14 @@ import { StyledFavorites } from "../src/components/Favorite";
 import Footer from "../src/components/Footer";
 
 function HomePage() {
-    const [valueFilter, setValueFilter] = React.useState("");
+    const [valorDoFiltro, setValorDoFiltro] = React.useState("");
     return (
         <>
             <CSSReset />
             <div>
-                <Menu valueFilter={valueFilter} setValueFilter={setValueFilter} />
+                <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
                 <Header />
-                <Timeline searchValue={valueFilter}  playlists={config.playlists} />
+                <Timeline searchValue={valorDoFiltro}  playlists={config.playlists} />
                 <Favorite favorites={config.favorites} />
                 <Footer/>
             </div>
@@ -27,7 +27,7 @@ function HomePage() {
   export default HomePage
 
   const StyledBanner =styled.div`
-    background-image: url(https://images.unsplash.com/photo-1595327656903-2f54e37ce09b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80);
+    background-image: url(${({ bg }) => bg});
     background-position: center center;
     height:230px;
   `;
@@ -35,8 +35,7 @@ function HomePage() {
   function Header(){
     return (
      <StyledHeader>
-        <StyledBanner/>
-        {/* <img src="banner" /> */}
+        <StyledBanner bg={config.bg} />
         <section className="user-info">
         <a href="https://github.com/YasmimS"> <img className="profile" src={`https://github.com/${config.github}.png`}  alt="profile picture"/></a>
             <div>
@@ -61,10 +60,11 @@ function HomePage() {
         <StyledTimeline>
             {playlistNames.map((playlistName) => {
                 const videos = props.playlists[playlistName];
+                let countVideos = 0;
                 /*console.log(playlistName);
                 console.log(videos);*/
                 return (
-                    <section>
+                    <section key={playlistName}>
                         <h2>{playlistName}</h2>
                         <div>
                         {videos
@@ -73,6 +73,7 @@ function HomePage() {
                                 const searchValueNormalized = searchValue.toLowerCase();
                                 return titleNormalized.includes(searchValueNormalized)
                             }).map((video) => {
+                                countVideos = countVideos + 1;
                                 return (
                                     <a key={video.url}  href={video.url}>
                                         <img src={video.thumb} />
@@ -82,6 +83,7 @@ function HomePage() {
                                     </a>
                                 )
                             })}
+                            {countVideos === 0 ? "Nenhum Vídeo Encontrado!" : ""}
                         </div>
                     </section>
                 )

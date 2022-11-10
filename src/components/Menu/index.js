@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import Search from "./components/Search";
 
 const StyledMenu = styled.header`
   display: flex;
   flex-direction: row;
   height: 56px;
-  justify-content: space-between;
+  justify-content: left;
   background-color: ${({ theme }) => theme.backgroundLevel1 || "#FFFFFF"};
   border: 1px solid ${({ theme }) => theme.borderBase || "#e5e5e5"};
   align-items: center;
@@ -24,12 +25,13 @@ const StyledMenu = styled.header`
   }
 `;
 
-export default function Menu() {
+export default function Menu({ valorDoFiltro, setValorDoFiltro }) {
   return (
     <StyledMenu>
       <div>
         <Logo />
       </div>
+      <Search valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
     </StyledMenu>
   );
 }
