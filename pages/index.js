@@ -1,7 +1,7 @@
 import React from "react";
+import Link from "next/link";
 import config from "../config.json";
 import styled from "styled-components";
-import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
 import { StyledHeader } from "../src/components/Header";
@@ -12,8 +12,11 @@ function HomePage() {
     const [valorDoFiltro, setValorDoFiltro] = React.useState("");
     return (
         <>
-            <CSSReset />
-            <div>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+            }}>
                 <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
                 <Header />
                 <Timeline searchValue={valorDoFiltro}  playlists={config.playlists} />
@@ -27,6 +30,7 @@ function HomePage() {
   export default HomePage
 
   const StyledBanner =styled.div`
+    background-color: blue;
     background-image: url(${({ bg }) => bg});
     background-position: center center;
     height:230px;
@@ -74,13 +78,27 @@ function HomePage() {
                                 return titleNormalized.includes(searchValueNormalized)
                             }).map((video) => {
                                 countVideos = countVideos + 1;
+                                let video_id;
+                                const regExp =
+                                /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                                const match = video.url.match(regExp);
+                                if (match && match[2].length == 11) {
+                                    video_id = match[2];
+                                }
                                 return (
-                                    <a key={video.url}  href={video.url}>
-                                        <img src={video.thumb} />
-                                        <span>
-                                            {video.title}
-                                        </span>
-                                    </a>
+                                <Link
+                                    href={{
+                                    pathname: "/video",
+                                    query: {
+                                        id: video_id,
+                                        title: video.title,
+                                    },
+                                }}
+                                    key={video.url}
+                                >
+                                    <img src={video.thumb} />
+                                    <span>{video.title}</span>
+                                </Link>
                                 )
                             })}
                             {countVideos === 0 ? "Nenhum Vídeo Encontrado!" : ""}

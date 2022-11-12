@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const StyledHeader = styled.div`
+background-color: ${({ theme }) => theme.backgroundLevel1};
+
 .profile {
     width: 80px;
     height: 80px;
