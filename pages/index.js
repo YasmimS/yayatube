@@ -7,6 +7,7 @@ import { StyledTimeline } from "../src/components/Timeline";
 import { StyledHeader } from "../src/components/Header";
 import { StyledFavorites } from "../src/components/Favorite";
 import Footer from "../src/components/Footer";
+import getIdFromURL from "../src/utils/getIdFromURL";
 
 function HomePage() {
     const [valorDoFiltro, setValorDoFiltro] = React.useState("");
@@ -78,23 +79,16 @@ function HomePage() {
                                 return titleNormalized.includes(searchValueNormalized)
                             }).map((video) => {
                                 countVideos = countVideos + 1;
-                                let video_id;
-                                const regExp =
-                                /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                                const match = video.url.match(regExp);
-                                if (match && match[2].length == 11) {
-                                    video_id = match[2];
-                                }
                                 return (
                                 <Link
                                     href={{
                                     pathname: "/video",
                                     query: {
-                                        id: video_id,
+                                        id: getIdFromURL(video.url),
                                         title: video.title,
                                     },
                                 }}
-                                    key={video.url}
+                                    key={video.id}
                                 >
                                     <img src={video.thumb} />
                                     <span>{video.title}</span>
