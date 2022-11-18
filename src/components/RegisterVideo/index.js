@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledRegisterVideo } from "./styles";
-//import video from "../../../pages/video";
+import { createClient } from "@supabase/supabase-js";
 import getIdFromURL from "../../utils/getIdFromURL";
 
 // Whiteboarding
@@ -20,16 +20,24 @@ function useForm(propsDoForm) {
             });
         },
         clearForm() {
-            setValues({});
+            setValues({
+                titulo: "",
+                url: "",
+            });
         }
     };
 }
 
+const PROJECT_URL = "https://xbjuliuissjcmvcuiuzy.supabase.co";
+const PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhianVsaXVpc3NqY212Y3VpdXp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjgzOTQwMjcsImV4cCI6MTk4Mzk3MDAyN30.mGLFS00J2tK9p3rtJFOiMth40xNrUhM_gpY_0-SwgH4";
+const supabase = createClient(PROJECT_URL, PUBLIC_KEY);
+
 export default function RegisterVideo() {
     const formCadastro = useForm({
-        initialValues: { titulo: "Frost punk", url: "https://youtube.." }
+        initialValues: { titulo: "", url: ""}
     });
-    const [formVisivel, setFormVisivel] = React.useState(false);             
+    const [formVisivel, setFormVisivel] = React.useState(false);     
+    //console.log();        
     /*
     ## O que precisamos para o form funcionar?
     - pegar os dados, que precisam vir do state
@@ -41,7 +49,7 @@ export default function RegisterVideo() {
 
     return (
         <StyledRegisterVideo>
-            <button className="add-video" onClick={() => setFormVisivel(true)}>
+            <button className="add-video" onClick={() => {setFormVisivel(true); formCadastro.clearForm();}}>
                 +
             </button>
             {/* Ternário */}
@@ -52,6 +60,23 @@ export default function RegisterVideo() {
                         evento.preventDefault();
                         console.log(formCadastro.values);
 
+                        //Contrato entre o FrontEnd e BackEnd
+                        supabase.from("video").insert({
+                            title: formCadastro.values.titulo,
+                            url: formCadastro.values.url,
+                            thumb: `https://img.youtube.com/vi/${getIdFromURL(
+                                formCadastro.values.url
+                            )}/hqdefault.jpg`,
+                            playlist: "Upload dos Usuário",
+                        })
+                        .then((retorno) => {
+                            console.log(retorno);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            alert(`${err}`);
+                        })
+
                         setFormVisivel(false);
                         formCadastro.clearForm();
                     }}>
@@ -59,11 +84,15 @@ export default function RegisterVideo() {
                             <button type="button" className="close-modal" onClick={() => setFormVisivel(false)}>
                                 X
                             </button>
+                          <fieldset>
+                           <legend id="legend">Enviar vídeo</legend>
                             <input
                                 placeholder="Titulo do vídeo"
                                 name="titulo"
                                 value={formCadastro.values.titulo}
-                                onChange={formCadastro.handleChange} required
+                                onChange={formCadastro.handleChange} 
+                                minLength="5"
+                                max="50" required
                             />
                             <input
                                 pattern="((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-_]{11})(\S+)?"
@@ -73,9 +102,10 @@ export default function RegisterVideo() {
                                 value={formCadastro.values.url}
                                 onChange={formCadastro.handleChange} required
                             />
+                         </fieldset>
                             <button type="submit">
                                 Cadastrar
-                            </button>
+                            </button><br/>
 
                             {getIdFromURL(formCadastro.values.url)?.length === 11 && (
                             <img

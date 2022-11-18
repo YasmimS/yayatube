@@ -8,9 +8,20 @@ import { StyledHeader } from "../src/components/Header";
 import { StyledFavorites } from "../src/components/Favorite";
 import Footer from "../src/components/Footer";
 import getIdFromURL from "../src/utils/getIdFromURL";
+import { videoService } from "../src/services/videoService";
+
+export const possiblePlaylists = ["Upload dos Usuário", "jogos", "filmes", "front-end", "back-end"];
 
 function HomePage() {
     const [valorDoFiltro, setValorDoFiltro] = React.useState("");
+    const [playlists, setPlaylists] = React.useState({});   // config.playlists
+    const service = videoService({playlists, setPlaylists});
+
+    React.useEffect(() => {
+       geraTimeline(service, setPlaylists); 
+       service.refresh();
+    }, []);
+
     return (
         <>
             <div style={{
@@ -20,7 +31,7 @@ function HomePage() {
             }}>
                 <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
                 <Header />
-                <Timeline searchValue={valorDoFiltro}  playlists={config.playlists} />
+                <Timeline searchValue={valorDoFiltro}  playlists={{ ...playlists, ...config.playlists }} />
                 <Favorite favorites={config.favorites} />
                 <Footer/>
             </div>
@@ -29,6 +40,39 @@ function HomePage() {
   }
   
   export default HomePage
+
+  export function geraTimeline(service, setPlaylists){
+    console.log("useEffect");
+        service
+            .getAllVideos()
+            .then((dados) => {
+                console.log(dados.data);
+                // Forma imutavel
+                const novasPlaylists = {};
+                dados.data?.forEach((video) => {
+                    if (!novasPlaylists[video.playlist] && possiblePlaylists.includes(video.playlist)){
+                    novasPlaylists[video.playlist] = [];
+                    novasPlaylists[video.playlist] = [
+                        video,
+                        ...novasPlaylists[video.playlist],
+                    ];
+                   }
+                   else if (!novasPlaylists[video.playlist] && novasPlaylists["Upload dos Usuário"]) {
+                    novasPlaylists["Upload dos Usuário"] = [
+                      video,
+                      ...(novasPlaylists["Upload dos Usuário"]),
+                    ];
+                  } else if (novasPlaylists[video.playlist]) {
+                    novasPlaylists[video.playlist] = [
+                      video,
+                      ...(novasPlaylists[video.playlist]),
+                    ];
+                  }
+                });
+
+                setPlaylists(novasPlaylists);
+            });
+   }
 
   const StyledBanner =styled.div`
     background-color: blue;
@@ -69,7 +113,7 @@ function HomePage() {
                 /*console.log(playlistName);
                 console.log(videos);*/
                 return (
-                    <section key={playlistName}>
+                    <section key={videos[0].url}>
                         <h2>{playlistName}</h2>
                         <div>
                         {videos
@@ -86,9 +130,12 @@ function HomePage() {
                                     query: {
                                         id: getIdFromURL(video.url),
                                         title: video.title,
+                                        playlist: possiblePlaylists.includes(video.playlist)
+                                        ? video.playlist
+                                        : "Upload dos Usuário",
                                     },
                                 }}
-                                    key={video.id}
+                                    key={video.url + video.title}
                                 >
                                     <img src={video.thumb} />
                                     <span>{video.title}</span>
@@ -111,14 +158,12 @@ function Favorite (props) {
         {favoriteNames.map((favoriteName) => {
             const videos = props.favorites[favoriteName];
             return (
-                <section key={favoriteName}>
-                    <h2>
-                        {favoriteName}
-                    </h2>
-                    <div>
+                <section key={favoriteName} className="wrapper-favorites">
+                  <h2>{favoriteName}</h2>
+                    <div className="favorite-info">
                     {videos.map((video)=>{
                         return(
-                                <a key={video.url} href={video.url}>
+                            <a key={video.url} href={video.url}>
                                 <img src={video.thumb}/>
                                 <span>{video.title}</span>
                             </a>

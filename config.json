@@ -29,21 +29,48 @@
             "title": "Netdecking Estraga o Magic?",
             "url": "https://www.youtube.com/watch?v=dXihyhYEsEc",
             "thumb": "https://img.youtube.com/vi/dXihyhYEsEc/hqdefault.jpg"
+          }
+        ],
+        "Filmes": [
+          {
+            "title": "JENNIFER's BODY",
+            "url": "https://youtu.be/C8azftM5puI",
+            "thumb": "https://img.youtube.com/vi/C8azftM5puI/hqdefault.jpg"
           },
           {
-            "title": "Cities: Skylines - EPCOTAB, o futuro de Saint Laurrent",
-            "url": "https://www.youtube.com/watch?v=zybKHMgLCWU",
-            "thumb": "https://img.youtube.com/vi/zybKHMgLCWU/hqdefault.jpg"
+            "title": "INTERSTELAR",
+            "url": "https://youtu.be/hHBsKHVLAYc",
+            "thumb": "https://img.youtube.com/vi/hHBsKHVLAYc/hqdefault.jpg"
           },
           {
-            "title": "We Were Here Together - Os Enigmas deste Mundo",
-            "url": "https://www.youtube.com/watch?v=UKgQsrHUG40",
-            "thumb": "https://img.youtube.com/vi/UKgQsrHUG40/hqdefault.jpg"
+            "title": "SCREAM",
+            "url": "https://youtu.be/beToTslH17s",
+            "thumb": "https://img.youtube.com/vi/beToTslH17s/hqdefault.jpg"
           },
           {
-            "title": "Microsoft Flight Simulator - Top Gun: Oceania - Missão RJ!",
-            "url": "https://www.youtube.com/watch?v=n3TneUb5c-w",
-            "thumb": "https://img.youtube.com/vi/n3TneUb5c-w/hqdefault.jpg"
+            "title": "MIDSOMMAR",
+            "url": "https://youtu.be/1Vnghdsjmd0",
+            "thumb": "https://img.youtube.com/vi/1Vnghdsjmd0/hqdefault.jpg"
+          },
+          {
+            "title": "THE EDGE OF SEVENTEEN",
+            "url": "https://youtu.be/vswj96INhmo",
+            "thumb": "https://img.youtube.com/vi/vswj96INhmo/hqdefault.jpg"
+          },
+          {
+            "title": "The Perks of Being a Wallflower",
+            "url": "https://youtu.be/n5rh7O4IDc0",
+            "thumb": "https://img.youtube.com/vi/n5rh7O4IDc0/hqdefault.jpg"
+          },
+          {
+            "title": "BLACK PANTHER",
+            "url": "https://youtu.be/wL4a4MafSjQ",
+            "thumb": "https://img.youtube.com/vi/wL4a4MafSjQ/hqdefault.jpg"
+          },
+          {
+            "title": "HEREDITARY",
+            "url": "https://youtu.be/V6wWKNij_1M",
+            "thumb": "https://img.youtube.com/vi/V6wWKNij_1M/hqdefault.jpg"
           }
         ],
       "front-end": [
@@ -114,26 +141,11 @@
           "title": "O que é Machine Learning? #HipstersPontoTube",
           "url": "https://www.youtube.com/watch?v=Iuz_jc96bQk",
           "thumb": "https://img.youtube.com/vi/Iuz_jc96bQk/hqdefault.jpg"
-        },
-        {
-          "title": "A MELHOR linguagem de programação com Fabio Akita | #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=imB0QVoNrGc",
-          "thumb": "https://img.youtube.com/vi/imB0QVoNrGc/hqdefault.jpg"
-        },
-        {
-          "title": "Top 5 libs que todo aplicativo Android deve ter com Alex Felipe | #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=ldRbnpy-qQs",
-          "thumb": "https://img.youtube.com/vi/ldRbnpy-qQs/hqdefault.jpg"
-        },
-        {
-          "title": "O que é o C#? #HipstersPontoTube",
-          "url": "https://www.youtube.com/watch?v=0JWMVc1CqpA",
-          "thumb": "https://img.youtube.com/vi/0JWMVc1CqpA/hqdefault.jpg"
         }
       ]
     },
     "favorites":{
-      "favorites": [
+      "Favoritos": [
       {
           "title": "Paulo Silveira",
           "url": "https://github.com/peas",

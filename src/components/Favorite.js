@@ -1,47 +1,50 @@
 import styled from "styled-components";
 
 export const StyledFavorites = styled.div`
-  flex: 1;
   width: 100%;
-  padding: 16px;
-  overflow: hidden;
+  padding: 32px;
   h2 {
     font-size: 16px;
     margin-bottom: 16px;
     text-transform: capitalize;
   }
   img {
-    font-weight: 500;
-    object-fit: cover;
-    width: 100%;
-    max-width: 105px;
-    height: auto;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
   }
-  section {
-    width: 100%;
-    padding: 0;
-    overflow: hidden;
-    padding: 16px;
-    div {
-      
-      width: calc(100vw - 16px * 4);
-      display: grid;
-      grid-gap: 16px;
-      grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(200px,1fr);
-      overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-      a {
-        scroll-snap-align: start;
+  .wrapper-favorites {
+    display: flex;
+  }
+  .favorite-info {
+    display: flex;
+    gap: 2rem;
+    padding-top: 42px;
+  }
+  p {
+    width: 92px;
+    height: 16px;
+    font-family: "Helvetica";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: ${({ theme }) => theme.textColorBase || "#222222"};
+  }
+  a {
         span {
           padding-top: 8px;
           display: block;
           padding-right: 24px;
-          color: ${({ theme }) => theme.textColorBase || "#222222"};
+          color: ${({ theme }) => theme.textColorBase};
         }
-      }
     }
-  }
+  /*a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }*/
 `;

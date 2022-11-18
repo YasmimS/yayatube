@@ -6,6 +6,7 @@ import RegisterVideo from "../src/components/RegisterVideo";
 
 const theme = {
     light: {
+        scheme: "light",
         backgroundBase: "#f9f9f9",
         backgroundLevel1: "#ffffff",
         backgroundLevel2: "#f0f0f0",
@@ -13,6 +14,7 @@ const theme = {
         textColorBase: "#222222",
     },
     dark: {
+        scheme: "dark",
         backgroundBase: "#181818",
         backgroundLevel1: "#202020",
         backgroundLevel2: "#313131",
